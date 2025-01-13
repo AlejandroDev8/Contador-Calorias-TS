@@ -1,13 +1,20 @@
-import { useState } from "react"
+import { useState, ChangeEvent } from "react"
 import { categories } from "../data/categories"
 
 export const Form = () => {
 
   const [activity, setActivity] = useState({
-    category: 0,
+    category: '0',
     name: '',
     calories: 0
   })
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
+    setActivity({
+      ...activity,
+      [e.target.id]: e.target.value
+    })
+  }
 
   return (
     <section className="bg-lime-500 py-20 px-5">
@@ -17,8 +24,9 @@ export const Form = () => {
             <label htmlFor="category" className="font-bold">Categorías:</label>
             <select id="category" className="border border-slate-300 p-2 rounded-lg w-full bg-white"
               value={activity.category}
+              onChange={handleChange}
             >
-              <option disabled selected value='0'>Selecciona una categoría</option>
+              <option value="0" disabled>Selecciona una Categoría</option>
               {categories.map(category => (
                 <option
                   key={category.id}
@@ -37,6 +45,7 @@ export const Form = () => {
               className="border border-slate-300 p-2 rounded-lg w-full"
               placeholder="Ej. Comida, bebida, transporte, etc."
               value={activity.name}
+              onChange={handleChange}
             />
           </div>
           <div className="grid grid-cols-1 gap-3">
@@ -48,6 +57,7 @@ export const Form = () => {
               placeholder="Ej. 100"
               min="1"
               value={activity.calories}
+              onChange={handleChange}
             />
           </div>
           <input
