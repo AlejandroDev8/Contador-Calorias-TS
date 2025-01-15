@@ -25,6 +25,10 @@ export const Form = () => {
     return category > 0 && name.trim() !== '' && calories > 0
   }
 
+  const isActivityorFood = () => {
+    return activity.category === 1 ? 'agregar comida' : 'agregar ejercicio'
+  }
+
   return (
     <section className="bg-lime-500 py-20 px-5">
       <div className="max-w-4xl mx-auto">
@@ -71,8 +75,8 @@ export const Form = () => {
           </div>
           <input
             type="submit"
-            className="bg-gray-700 hover:bg-gray-800 w-full p-2 font-bold uppercase text-white cursor-pointer disabled:opacity-10"
-            value="Agregar"
+            className="bg-gray-700 hover:bg-gray-800 w-full p-2 font-bold uppercase text-white cursor-pointer disabled:opacity-10 disabled:cursor-default"
+            value={activity.category === 0 ? 'agregar' : isActivityorFood()}
             disabled={!isValidActivity()}
           />
         </form>
